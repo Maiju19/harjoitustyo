@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import firebaseConfig from "../firebaseConfig";
+import { auth } from "../firebaseConfig";
 import "./App.css";
 
-function LoginForm() {
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+
     
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -26,6 +22,8 @@ function LoginForm() {
       // Kirjautuminen epäonnistui, näytä virheilmoitus käyttäjälle
     }
   }
+
+  function LoginForm() {
 
   return (
     <div>
