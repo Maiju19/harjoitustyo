@@ -29,6 +29,8 @@
   color: #888;
 }
 
+
+/* App.css */
 .login-form {
   display: block;
   margin: 0 auto;
@@ -38,4 +40,32 @@
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
+.login-form label {
+  display: block;
+  margin-bottom: 10px;  /* Lisää tilaa kenttien väliin */
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;  /* Lisää tilaa kenttien väliin */
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50; /* Vihreä taustaväri */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #45a049; /* Tummempi vihreä hover-tilassa */
+}
+
 
