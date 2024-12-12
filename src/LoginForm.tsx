@@ -9,7 +9,6 @@ function LoginForm()  {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -17,20 +16,14 @@ function LoginForm()  {
     e.preventDefault();
     
     try {
-      await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("Kirjautuminen onnistui käyttäjälle " + user.email);
-        
-        setIsLoggedIn(true);
-        navigate("/dashboard");
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/dashboard");
 
-      });
     } catch (error) {
       setError("Kirjautuminen epäonnistui");
-      console.error("Virhe kirjautumisessa", error);
-      // Kirjautuminen epäonnistui, näytä virheilmoitus käyttäjälle
+      console.error("Kirjautminen epäonnistui", error);
     }
+    
   };
 
 
