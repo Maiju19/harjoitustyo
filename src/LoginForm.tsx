@@ -4,30 +4,31 @@ import { auth } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import "./App.css";
 
-const LoginForm = () => {
+function LoginForm()  {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
   const navigate = useNavigate();
-
-
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-
+    
     try {
       await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log("Tämä on esimerkkiviesti " + user.email);
+        console.log("Kirjautuminen onnistui käyttäjälle " + user.email);
+        
+        setIsLoggedIn(true);
         navigate("/dashboard");
 
       });
     } catch (error) {
       setError("Kirjautuminen epäonnistui");
-      console.error(error);
+      console.error("Virhe kirjautumisessa", error);
       // Kirjautuminen epäonnistui, näytä virheilmoitus käyttäjälle
     }
   };
