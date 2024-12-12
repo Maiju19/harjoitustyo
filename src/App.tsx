@@ -1,38 +1,36 @@
 import { useState, useEffect} from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import LoginForm from './LoginForm'
 import Dashboard from './Dashboard';
 import { auth } from '../firebaseConfig'; 
 import { onAuthStateChanged } from 'firebase/auth';
 import './App.css' 
 
-function App (){
-
+function App () {
     const [user, setUser] = useState<any>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, setUser);
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setUser(user);
+          navigate("/dashboard");
+        } else {
+          setUser(null);
+          navigate("/");
+        }
+      });
       return () => unsubscribe();
-    }, []);
+    }, [navigate]);
 
-    if (user) {
-      return <Dashboard />;
-    }
-  
 
   return (
-    <Routes>
-      <div>
-      <h1>Tervetuloa selaamaan taidetta!</h1>
-      
-        <Route path='/dashboard'>
-        {user ? <Dashboard />: <LoginForm />}
-        </Route>
-        <Route path="/">
-        {user ? <Dashboard /> : <LoginForm />}
-        </Route>
-      </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginForm />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
+    </Router>
     
   );
 
