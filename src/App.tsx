@@ -1,4 +1,5 @@
 import { useState, useEffect} from 'react';
+import { Routes, Route } from 'react-router-dom';
 import LoginForm from './LoginForm'
 import Dashboard from './Dashboard';
 import { auth } from '../firebaseConfig'; 
@@ -20,13 +21,19 @@ function App (){
   
 
   return (
-    <>
+    <Routes>
       <div>
       <h1>Tervetuloa selaamaan taidetta!</h1>
       
-          <LoginForm />
+        <Route path='/dashboard'>
+        {user ? <Dashboard />: <LoginForm />}
+        </Route>
+        <Route path="/">
+        {user ? <Dashboard /> : <LoginForm />}
+        </Route>
       </div>
-    </>
+      </Routes>
+    
   );
 
 }
