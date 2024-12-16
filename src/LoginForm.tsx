@@ -14,14 +14,17 @@ function LoginForm()  {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    setError("");
     
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/dashboard");
 
     } catch (error) {
-      setError("Kirjautuminen epäonnistui");
+      setError("Kirjautuminen epäonnistui. Tarkista sähköposti ja salasana");
       console.error("Kirjautminen epäonnistui", error);
+      setTimeout(() => setError(""), 5000);
     }
     
   };
